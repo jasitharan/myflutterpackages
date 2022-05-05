@@ -42,4 +42,8 @@ class AuthProvider {
   Future forgotPassword(String email) async {
     return await _authRepo.forgotPassword(email);
   }
+
+  Future checkUserIsLoggedIn() async {
+    return await _authRepo.validate();
+  }
 }
