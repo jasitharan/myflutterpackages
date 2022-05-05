@@ -1,9 +1,7 @@
-import '../repository/auth_repo.dart';
-import '../repository/firebase/firebase_auth_repo.dart';
-import 'models/user_model.dart';
+import 'package:authentication/authentication.dart';
 
 class AuthProvider {
-  final AuthRepo _authRepo = FirebaseAuthRepo();
+  final AuthRepo _authRepo = AuthSetting.authRepo;
 
   UserModel? _userFromServer(dynamic user) {
     return user != null
