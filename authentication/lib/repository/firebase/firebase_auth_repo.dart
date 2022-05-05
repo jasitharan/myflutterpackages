@@ -81,4 +81,9 @@ class FirebaseAuthRepo implements AuthRepo {
   Stream<User?> getUser() {
     return firebaseAuth.authStateChanges();
   }
+
+  @override
+  Future<bool> validate() async {
+    return firebaseAuth.currentUser?.refreshToken != null;
+  }
 }

@@ -20,7 +20,7 @@ class ApiUserModel {
 
   factory ApiUserModel.fromMap(Map<String, dynamic> map) {
     return ApiUserModel(
-      uid: map['uid'] != null ? map['token'] as String : null,
+      uid: map['token'] != null ? map['token'] as String : null,
       email: map['email'] != null ? map['user']['email'] as String : null,
       displayName: map['name'] != null ? map['user']['name'] as String : null,
     );
