@@ -1,7 +1,9 @@
 import 'package:authentication/authentication.dart';
 
+import '../repository/auth_repo.dart';
+
 class AuthProvider {
-  final AuthRepo _authRepo = AuthSetting.authRepo;
+  final AuthRepo _authRepo = AuthSettings.authRepo;
 
   UserModel? _userFromServer(dynamic user) {
     return user != null
@@ -39,9 +41,5 @@ class AuthProvider {
 
   Future forgotPassword(String email) async {
     return await _authRepo.forgotPassword(email);
-  }
-
-  Future<bool> checkUserIsLoggedIn() async {
-    return await _authRepo.validate();
   }
 }

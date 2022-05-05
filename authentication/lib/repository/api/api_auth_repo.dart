@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:authentication/auth_setting.dart';
+import 'package:authentication/auth_settings.dart';
 import 'package:authentication/repository/api/models/api_user_model.dart';
 import 'package:authentication/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
 
 class ApiAuthRepo implements AuthRepo {
-  static String baseUrl = AuthSetting.url;
-  static var client = http.Client();
-
+  static final String baseUrl = AuthSettings.url;
   final controller = StreamController<ApiUserModel?>();
 
   ApiUserModel? userInstance;
@@ -30,8 +28,7 @@ class ApiAuthRepo implements AuthRepo {
     );
 
     if (response.statusCode == 201) {
-      ApiUserModel apiUserModel =
-          ApiUserModel.fromJson(jsonDecode(response.body));
+      ApiUserModel apiUserModel = ApiUserModel.fromJson(response.body);
       controller.add(apiUserModel);
       userInstance = apiUserModel;
       return apiUserModel;
@@ -50,8 +47,7 @@ class ApiAuthRepo implements AuthRepo {
       body: jsonEncode(<String, String>{'email': email, 'password': password}),
     );
     if (response.statusCode == 201) {
-      ApiUserModel apiUserModel =
-          ApiUserModel.fromJson(jsonDecode(response.body));
+      ApiUserModel apiUserModel = ApiUserModel.fromJson(response.body);
       controller.add(apiUserModel);
       userInstance = apiUserModel;
       return apiUserModel;
@@ -80,11 +76,6 @@ class ApiAuthRepo implements AuthRepo {
     } else {
       return null;
     }
-  }
-
-  @override
-  Future validate() {
-    throw UnimplementedError();
   }
 
   @override
