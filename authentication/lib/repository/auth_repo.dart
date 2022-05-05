@@ -9,7 +9,5 @@ abstract class AuthRepo {
 
   Future signOut();
 
-  Future<bool> validate();
-
   Stream getUser();
 }

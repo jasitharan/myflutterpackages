@@ -101,10 +101,4 @@ class ApiAuthRepo implements AuthRepo {
   Stream<ApiUserModel?> getUser() {
     return controller.stream;
   }
-
-  @override
-  Future<bool> validate() {
-    // TODO: implement validate
-    throw UnimplementedError();
-  }
 }
