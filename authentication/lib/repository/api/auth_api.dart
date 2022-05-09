@@ -33,7 +33,7 @@ class AuthApi {
     _apiUserModel = null;
   }
 
-  static void initialize(String url) async {
+  static Future<void> initialize(String url) async {
     AuthSettings.serverType = ServerType.api;
     AuthSettings.url = url;
     String json = jsonEncode(await _readAuth());
