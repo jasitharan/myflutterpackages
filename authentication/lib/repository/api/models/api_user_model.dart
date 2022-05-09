@@ -13,8 +13,10 @@ class ApiUserModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'token': uid ?? '',
-      'email': email ?? '',
-      'name': displayName ?? '',
+      'user': {
+        'email': email ?? '',
+        'name': displayName ?? '',
+      }
     };
   }
 
