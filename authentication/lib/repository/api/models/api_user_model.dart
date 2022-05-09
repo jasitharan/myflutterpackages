@@ -12,17 +12,19 @@ class ApiUserModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'token': uid,
-      'email': email,
-      'name': displayName,
+      'token': uid ?? '',
+      'email': email ?? '',
+      'name': displayName ?? '',
     };
   }
 
   factory ApiUserModel.fromMap(Map<String, dynamic> map) {
     return ApiUserModel(
       uid: map['token'] != null ? map['token'] as String : null,
-      email: map['email'] != null ? map['user']['email'] as String : null,
-      displayName: map['name'] != null ? map['user']['name'] as String : null,
+      email:
+          map['user']['email'] != null ? map['user']['email'] as String : null,
+      displayName:
+          map['user']['name'] != null ? map['user']['name'] as String : null,
     );
   }
 
