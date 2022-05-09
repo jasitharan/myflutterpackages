@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth_settings.dart';
@@ -36,7 +34,7 @@ class AuthApi {
   static Future<void> initialize(String url) async {
     AuthSettings.serverType = ServerType.api;
     AuthSettings.url = url;
-    String json = jsonEncode(await _readAuth());
+    String json = await _readAuth();
     _apiUserModel = ApiUserModel.fromJson(json);
   }
 }
