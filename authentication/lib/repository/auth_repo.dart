@@ -5,6 +5,8 @@ abstract class AuthRepo {
 
   Future signInWithGoogle();
 
+  Future signInWithApple();
+
   Future forgotPassword(String email);
 
   Future signOut();

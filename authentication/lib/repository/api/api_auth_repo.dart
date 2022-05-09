@@ -74,6 +74,11 @@ class ApiAuthRepo implements AuthRepo {
   }
 
   @override
+  Future signInWithApple() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future signOut() async {
     final response =
         await http.post(Uri.parse('$baseUrl/logout'), headers: <String, String>{

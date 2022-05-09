@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../auth_repo.dart';
 
@@ -44,6 +45,28 @@ class FirebaseAuthRepo implements AuthRepo {
         idToken: googleSignInAuthentication.idToken,
       );
       var result = await firebaseAuth.signInWithCredential(credential);
+      User? user = result.user;
+
+      return user;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Future signInWithApple() async {
+    try {
+      final appleIdCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      final oauthCredential = OAuthProvider("apple.com").credential(
+          idToken: appleIdCredential.identityToken,
+          accessToken: appleIdCredential.authorizationCode);
+      final result = await firebaseAuth.signInWithCredential(oauthCredential);
+
       User? user = result.user;
 
       return user;

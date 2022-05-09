@@ -16,3 +16,5 @@ shared_preferences_linux=/home/jasitharan/snap/flutter/common/flutter/.pub-cache
 shared_preferences_macos=/home/jasitharan/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.3/
 shared_preferences_web=/home/jasitharan/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.3/
 shared_preferences_windows=/home/jasitharan/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.0/
+sign_in_with_apple=/home/jasitharan/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-3.3.0/
+sign_in_with_apple_web=/home/jasitharan/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/
