@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:authentication/auth_settings.dart';
+import 'package:authentication/repository/api/auth_api.dart';
 import 'package:authentication/repository/api/models/api_user_model.dart';
 import 'package:authentication/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,15 @@ class ApiAuthRepo implements AuthRepo {
   final controller = StreamController<ApiUserModel?>();
 
   ApiUserModel? userInstance;
+
+  ApiAuthRepo() {
+    setUserFromAuthApi(AuthApi.getApiUserModel());
+  }
+
+  void setUserFromAuthApi(ApiUserModel? user) {
+    userInstance = user;
+    controller.add(userInstance);
+  }
 
   @override
   Future registerNewUser(String name, String email, String password) async {
@@ -31,6 +41,7 @@ class ApiAuthRepo implements AuthRepo {
       ApiUserModel apiUserModel = ApiUserModel.fromJson(response.body);
       controller.add(apiUserModel);
       userInstance = apiUserModel;
+      AuthApi.setAuth(userInstance);
       return apiUserModel;
     } else {
       return null;
@@ -50,6 +61,7 @@ class ApiAuthRepo implements AuthRepo {
       ApiUserModel apiUserModel = ApiUserModel.fromJson(response.body);
       controller.add(apiUserModel);
       userInstance = apiUserModel;
+      AuthApi.setAuth(userInstance);
       return apiUserModel;
     } else {
       return null;
@@ -70,8 +82,9 @@ class ApiAuthRepo implements AuthRepo {
     });
 
     if (response.statusCode == 200) {
-      userInstance = ApiUserModel();
+      userInstance = null;
       controller.add(null);
+      AuthApi.clearAuth();
       return 1;
     } else {
       return null;
