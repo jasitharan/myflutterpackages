@@ -10,12 +10,11 @@ class AuthApi {
     return _apiUserModel;
   }
 
-  static Future<String> _readAuth() async {
+  static Future<String?> _readAuth() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(
-          'auth',
-        ) ??
-        "";
+      'auth',
+    );
   }
 
   static Future<void> setAuth(ApiUserModel? apiUserModel) async {
@@ -34,7 +33,9 @@ class AuthApi {
   static Future<void> initialize(String url) async {
     AuthSettings.serverType = ServerType.api;
     AuthSettings.url = url;
-    String json = await _readAuth();
-    _apiUserModel = ApiUserModel.fromJson(json);
+    String? json = await _readAuth();
+    if (json != null) {
+      _apiUserModel = ApiUserModel.fromJson(json);
+    }
   }
 }
