@@ -30,8 +30,13 @@ class AuthProvider {
     return _userFromServer(user);
   }
 
-  Future<UserModel?> signInWithGoogle(String email, String password) async {
+  Future<UserModel?> signInWithGoogle() async {
     dynamic user = await _authRepo.signInWithGoogle();
+    return _userFromServer(user);
+  }
+
+  Future<UserModel?> signInWithApple() async {
+    dynamic user = await _authRepo.signInWithApple();
     return _userFromServer(user);
   }
 
