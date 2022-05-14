@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import '../auth_repo.dart';
 
@@ -54,24 +54,40 @@ class FirebaseAuthRepo implements AuthRepo {
   }
 
   @override
-  Future signInWithApple() async {
-    try {
-      final appleIdCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
-      final oauthCredential = OAuthProvider("apple.com").credential(
-          idToken: appleIdCredential.identityToken,
-          accessToken: appleIdCredential.authorizationCode);
-      final result = await firebaseAuth.signInWithCredential(oauthCredential);
+  Future<User?> signInWithApple({List<Scope> scopes = const []}) async {
+    // 1. perform the sign-in request
+    final result = await TheAppleSignIn.performRequests(
+        [AppleIdRequest(requestedScopes: scopes)]);
+    // 2. check the result
+    switch (result.status) {
+      case AuthorizationStatus.authorized:
+        final appleIdCredential = result.credential!;
+        final oAuthProvider = OAuthProvider('apple.com');
+        final credential = oAuthProvider.credential(
+          idToken: String.fromCharCodes(appleIdCredential.identityToken!),
+          accessToken:
+              String.fromCharCodes(appleIdCredential.authorizationCode!),
+        );
+        final userCredential =
+            await firebaseAuth.signInWithCredential(credential);
+        final firebaseUser = userCredential.user!;
+        if (scopes.contains(Scope.fullName)) {
+          final fullName = appleIdCredential.fullName;
+          if (fullName != null &&
+              fullName.givenName != null &&
+              fullName.familyName != null) {
+            final displayName = '${fullName.givenName} ${fullName.familyName}';
+            await firebaseUser.updateDisplayName(displayName);
+          }
+        }
+        return firebaseUser;
+      case AuthorizationStatus.error:
+        return null;
 
-      User? user = result.user;
-
-      return user;
-    } catch (e) {
-      return null;
+      case AuthorizationStatus.cancelled:
+        return null;
+      default:
+        return null;
     }
   }
 
