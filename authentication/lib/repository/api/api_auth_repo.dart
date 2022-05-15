@@ -6,6 +6,7 @@ import 'package:authentication/repository/api/auth_api.dart';
 import 'package:authentication/repository/api/models/api_user_model.dart';
 import 'package:authentication/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 class ApiAuthRepo implements AuthRepo {
   static final String baseUrl = AuthSettings.url;
@@ -74,7 +75,7 @@ class ApiAuthRepo implements AuthRepo {
   }
 
   @override
-  Future signInWithApple() {
+  Future signInWithApple({List<Scope> scopes = const []}) {
     throw UnimplementedError();
   }
 

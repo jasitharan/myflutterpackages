@@ -1,3 +1,5 @@
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+
 abstract class AuthRepo {
   Future registerNewUser(String name, String email, String password);
 
@@ -5,7 +7,7 @@ abstract class AuthRepo {
 
   Future signInWithGoogle();
 
-  Future signInWithApple();
+  Future signInWithApple({List<Scope> scopes = const []});
 
   Future forgotPassword(String email);
 

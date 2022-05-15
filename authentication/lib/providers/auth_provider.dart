@@ -1,4 +1,5 @@
 import 'package:authentication/authentication.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import '../repository/auth_repo.dart';
 
@@ -35,8 +36,10 @@ class AuthProvider {
     return _userFromServer(user);
   }
 
-  Future<UserModel?> signInWithApple() async {
-    dynamic user = await _authRepo.signInWithApple();
+  Future<UserModel?> signInWithApple({List<Scope> scopes = const []}) async {
+    dynamic user = await _authRepo.signInWithApple(
+      scopes: [Scope.email, Scope.fullName],
+    );
     return _userFromServer(user);
   }
 
