@@ -8,7 +8,13 @@ class AuthProvider {
 
   UserModel? _userFromServer(dynamic user) {
     return user != null
-        ? UserModel(uid: user.uid, email: user.email, name: user.displayName)
+        ? UserModel(
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName,
+            photoUrl: user.photoURL,
+            phoneNumber: user.phoneNumber,
+          )
         : null;
   }
 
@@ -33,6 +39,11 @@ class AuthProvider {
 
   Future<UserModel?> signInWithGoogle() async {
     dynamic user = await _authRepo.signInWithGoogle();
+    return _userFromServer(user);
+  }
+
+  Future<UserModel?> signInWithFacebook() async {
+    dynamic user = await _authRepo.signInWithFacebook();
     return _userFromServer(user);
   }
 

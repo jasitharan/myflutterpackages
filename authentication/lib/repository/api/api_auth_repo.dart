@@ -75,6 +75,11 @@ class ApiAuthRepo implements AuthRepo {
   }
 
   @override
+  Future signInWithFacebook() {
+    throw UnimplementedError();
+  }
+
+  @override
   Future signInWithApple({List<Scope> scopes = const []}) {
     throw UnimplementedError();
   }

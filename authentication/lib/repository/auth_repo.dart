@@ -7,6 +7,8 @@ abstract class AuthRepo {
 
   Future signInWithGoogle();
 
+  Future signInWithFacebook();
+
   Future signInWithApple({List<Scope> scopes = const []});
 
   Future forgotPassword(String email);
