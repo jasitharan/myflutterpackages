@@ -7,7 +7,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  firebase_auth: ^3.3.17
+  firebase_auth: ^3.7.0
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^4.4.1
