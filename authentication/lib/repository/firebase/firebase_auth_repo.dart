@@ -119,18 +119,22 @@ class FirebaseAuthRepo implements AuthRepo {
 
   @override
   Future signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+    try {
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-    // Once signed in, return the UserCredential
-    final userCredential = await FirebaseAuth.instance
-        .signInWithCredential(facebookAuthCredential);
+      // Once signed in, return the UserCredential
+      final userCredential = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
 
-    return userCredential.user!;
+      return userCredential.user!;
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
