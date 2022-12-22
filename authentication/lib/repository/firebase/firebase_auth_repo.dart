@@ -125,8 +125,10 @@ class FirebaseAuthRepo implements AuthRepo {
         // Create a credential from the access token
         final OAuthCredential credential =
             FacebookAuthProvider.credential(result.accessToken!.token);
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
         // Once signed in, return the UserCredential
-        return await FirebaseAuth.instance.signInWithCredential(credential);
+        return userCredential.user;
       }
       return null;
     } catch (e) {
