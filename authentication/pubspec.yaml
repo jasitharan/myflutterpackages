@@ -7,13 +7,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  firebase_auth: ^4.1.3
+  firebase_auth: ^4.6.1
   flutter:
     sdk: flutter
-  flutter_facebook_auth: ^5.0.6
-  google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^5.0.11
+  google_sign_in: ^6.1.2
   http: ^0.13.5
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.1.1
   the_apple_sign_in: ^1.1.1
 
 dev_dependencies:
